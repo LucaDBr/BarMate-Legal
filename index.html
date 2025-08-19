@@ -11,28 +11,30 @@
       padding: 0;
       background: #fafafa;
       color: #333;
-      line-height: 1.6;
+      line-height: 1.7;
+      font-size: 18px;
     }
     header {
       background: #ff9800;
       color: #fff;
-      padding: 1.5rem;
+      padding: 2rem 1rem;
       text-align: center;
     }
-    header h1 { margin: 0; font-size: 2rem; }
+    header h1 { margin: 0; font-size: 2.5rem; }
+    header p { margin: 0.5rem 0; font-size: 1.2rem; }
     nav {
       margin-top: 1rem;
     }
     nav a {
       color: #fff;
-      margin: 0 0.8rem;
+      margin: 0 1rem;
       text-decoration: none;
       font-weight: bold;
     }
     section {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 2rem auto;
-      padding: 0 1rem;
+      padding: 0 1.5rem;
     }
     h2 {
       color: #ff9800;
@@ -40,20 +42,38 @@
     }
     footer {
       text-align: center;
-      padding: 1rem;
+      padding: 1.5rem;
       background: #333;
       color: #fff;
-      font-size: 0.9rem;
+      margin-top: 2rem;
     }
     .cta {
       display: inline-block;
       background: #ff9800;
       color: #fff;
-      padding: 0.7rem 1.2rem;
+      padding: 1rem 1.5rem;
       margin-top: 1rem;
-      border-radius: 8px;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .lang-switch {
+      margin-top: 1rem;
+    }
+    .lang-switch button {
+      background: #fff;
+      border: 2px solid #ff9800;
+      color: #ff9800;
+      padding: 0.4rem 0.8rem;
+      margin: 0 0.5rem;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .lang-switch button.active {
+      background: #ff9800;
+      color: #fff;
     }
   </style>
 </head>
@@ -61,53 +81,129 @@
 
   <header>
     <h1>BarMate</h1>
-    <p>Die Festival-Kassen-App – schnell Preise addieren & Rückgeld berechnen</p>
+    <p id="tagline">Die Festival-Kassen-App – schnell Preise addieren & Rückgeld berechnen</p>
+    <div class="lang-switch">
+      <button id="de" class="active">Deutsch</button>
+      <button id="en">English</button>
+    </div>
     <nav>
-      <a href="#features">Features</a>
-      <a href="#support">Support</a>
-      <a href="#legal">Rechtliches</a>
+      <a href="#features" data-i18n="menu.features">Features</a>
+      <a href="#support" data-i18n="menu.support">Support</a>
+      <a href="#legal" data-i18n="menu.legal">Rechtliches</a>
     </nav>
   </header>
 
   <section id="features">
-    <h2>✨ Features</h2>
-    <ul>
-      <li>🍺 Produkte wie Getränke & Speisen mit Preis anlegen</li>
-      <li>💰 Bestellungen blitzschnell addieren</li>
-      <li>🔄 Automatische Rückgeld-Berechnung</li>
-      <li>📱 Minimalistisch, intuitiv, offline nutzbar</li>
-      <li>🎉 Perfekt für Festivals, Bars, Foodtrucks & private Events</li>
-    </ul>
-    <a class="cta" href="#">📲 App im App Store herunterladen</a>
+    <h2 data-i18n="features.title">✨ Features</h2>
+    <ul id="features-list"></ul>
+    <a class="cta" href="#">📲 <span data-i18n="features.cta">App im App Store herunterladen</span></a>
   </section>
 
   <section id="support">
-    <h2>📩 Support</h2>
-    <p>Bei Fragen, Feedback oder Problemen erreichst du uns per E-Mail:</p>
-    <p><a href="mailto:support@deinedomain.de">support@deinedomain.de</a></p>
+    <h2 data-i18n="support.title">📩 Support</h2>
+    <p id="support-text"></p>
+    <p><a href="mailto:lucadbrdev@gmail.com">lucadbrdev@gmail.com</a></p>
   </section>
 
   <section id="legal">
-    <h2>⚖️ Rechtliches</h2>
-    <h3>Impressum</h3>
-    <p>
-      Verantwortlich für den Inhalt:<br>
-      Dein Name<br>
-      Deine Adresse<br>
-      Deine E-Mail<br>
-    </p>
+    <h2 data-i18n="legal.title">⚖️ Rechtliches</h2>
 
-    <h3>Datenschutzerklärung</h3>
-    <p>
-      Diese App verarbeitet keine personenbezogenen Daten.  
-      Es ist keine Registrierung notwendig, alle Daten bleiben lokal auf deinem Gerät.  
-      Es werden keine Cookies, Tracker oder externe Dienste verwendet.
-    </p>
+    <h3 data-i18n="privacy.title">Datenschutz</h3>
+    <p id="privacy"></p>
+
+    <h3 data-i18n="terms.title">Nutzungsbedingungen</h3>
+    <p id="terms"></p>
+
+    <h3 data-i18n="licenses.title">Open Source</h3>
+    <p id="licenses"></p>
   </section>
 
   <footer>
-    © 2025 BarMate – Alle Rechte vorbehalten.
+    © 2025 BarMate – Alle Rechte vorbehalten · All rights reserved.
   </footer>
+
+  <script>
+    const translations = {
+      de: {
+        tagline: "Die Festival-Kassen-App – schnell Preise addieren & Rückgeld berechnen",
+        menu: { features: "Features", support: "Support", legal: "Rechtliches" },
+        features: {
+          title: "✨ Features",
+          list: [
+            "🍺 Produkte wie Getränke & Speisen mit Preis anlegen",
+            "💰 Bestellungen blitzschnell addieren",
+            "🔄 Automatische Rückgeld-Berechnung",
+            "📱 Minimalistisch, intuitiv, offline nutzbar",
+            "🎉 Perfekt für Festivals, Bars, Foodtrucks & private Events"
+          ],
+          cta: "App im App Store herunterladen"
+        },
+        support: {
+          title: "📩 Support",
+          text: "Bei Fragen, Feedback oder Problemen erreichst du uns per E-Mail:"
+        },
+        legal: { title: "⚖️ Rechtliches" },
+        privacy: "Diese App verarbeitet keine personenbezogenen Daten. Alle Daten bleiben lokal auf deinem Gerät.",
+        terms: "Mit Nutzung der App stimmst du den Nutzungsbedingungen zu. Du bist verantwortlich für Preise, Steuerkonformität und Datensicherung.",
+        licenses: "BarMate verwendet Swift & SwiftUI. Danke an die Open Source Community."
+      },
+      en: {
+        tagline: "The festival cash register app – quickly add prices & calculate change",
+        menu: { features: "Features", support: "Support", legal: "Legal" },
+        features: {
+          title: "✨ Features",
+          list: [
+            "🍺 Add drinks & food with prices",
+            "💰 Quickly sum up orders",
+            "🔄 Automatic change calculator",
+            "📱 Minimalistic, intuitive & offline",
+            "🎉 Perfect for festivals, bars, food trucks & events"
+          ],
+          cta: "Download on the App Store"
+        },
+        support: {
+          title: "📩 Support",
+          text: "For any questions, feedback or problems please contact us:"
+        },
+        legal: { title: "⚖️ Legal" },
+        privacy: "BarMate is designed with privacy in mind. All data stays on your device and is never transmitted.",
+        terms: "By using BarMate, you agree to the Terms of Service. You are responsible for correct pricing, taxes, and backing up your data.",
+        licenses: "BarMate uses Swift & SwiftUI. Thanks to the open source community."
+      }
+    };
+
+    function setLanguage(lang) {
+      document.getElementById("tagline").textContent = translations[lang].tagline;
+      document.querySelector("[data-i18n='menu.features']").textContent = translations[lang].menu.features;
+      document.querySelector("[data-i18n='menu.support']").textContent = translations[lang].menu.support;
+      document.querySelector("[data-i18n='menu.legal']").textContent = translations[lang].menu.legal;
+      document.querySelector("[data-i18n='features.title']").textContent = translations[lang].features.title;
+      const featuresList = document.getElementById("features-list");
+      featuresList.innerHTML = "";
+      translations[lang].features.list.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        featuresList.appendChild(li);
+      });
+      document.querySelector("[data-i18n='features.cta']").textContent = translations[lang].features.cta;
+      document.getElementById("support-text").textContent = translations[lang].support.text;
+      document.querySelector("[data-i18n='support.title']").textContent = translations[lang].support.title;
+      document.querySelector("[data-i18n='legal.title']").textContent = translations[lang].legal.title;
+      document.getElementById("privacy").textContent = translations[lang].privacy;
+      document.querySelector("[data-i18n='terms.title']").textContent = (lang === "de" ? "Nutzungsbedingungen" : "Terms of Service");
+      document.getElementById("terms").textContent = translations[lang].terms;
+      document.querySelector("[data-i18n='licenses.title']").textContent = translations[lang].licenses.title;
+      document.getElementById("licenses").textContent = translations[lang].licenses;
+      document.getElementById("de").classList.toggle("active", lang === "de");
+      document.getElementById("en").classList.toggle("active", lang === "en");
+    }
+
+    document.getElementById("de").addEventListener("click", () => setLanguage("de"));
+    document.getElementById("en").addEventListener("click", () => setLanguage("en"));
+
+    // Default Sprache
+    setLanguage("de");
+  </script>
 
 </body>
 </html>
